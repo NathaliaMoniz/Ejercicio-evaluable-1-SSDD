@@ -1,11 +1,17 @@
-#define MAXSIZE	256
-#define SUMA	0
-#define RESTAR 1
-// . . . 
 
-struct clave  {
-	int key;			/* clave */
-	char *value1; 	   		/* operando 1 */
-	int N_value2;	   		/* numero de elementos entre 1 y 32 */
-	double *V_value_2; 	/* vector de doubles */
-};
+#ifndef CLAVES_H
+#define CLAVES_H
+
+int init();
+
+int set_value(int key, char *value1, int N_value2, double *V_value2);
+
+int get_value(int key, char *value1, int *N_value2, double *V_value2);
+
+int modify_value(int key, char *value1, int N_value2, double *V_value2);
+
+int delete_key(int key);
+
+int exist(int key);
+
+#endif
