@@ -16,7 +16,7 @@ int init(){
     char q_client_name[MAX];                            // Nombre de la cola cliente  
     sprintf(q_client_name,  "/Cola-%d", getpid());      // El combre de la cola del cliente será el pid del proceso
 
-    char q_server_name[MAX];                            // Nombre de la cola cliente  
+    char q_server_name[MAX];                            // Nombre de la cola servidor  
     sprintf(q_server_name,  "/Cola-%d", getplogin());   // El combre de la cola del servidor será el nombre del usuario
 
     mqd_t q_client;               // Cola del cliente
