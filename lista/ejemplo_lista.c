@@ -8,6 +8,7 @@ int main(void)
 	List my_list;
 	int err = 0;
 	int i;
+	double j;
 	char key[MAX_KEY_LENGTH];
 
 
@@ -20,7 +21,7 @@ int main(void)
 
 	for (i=0; i < 10; i++){
 		sprintf(key, "%d", i);
-		err = set(&my_list, key, i);
+		err = set(&my_list, key, i, i, &j);
 		if (err == -1) {
 			printf("Error in set\n");
 			return -1;
