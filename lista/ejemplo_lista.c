@@ -7,11 +7,12 @@ int main(void)
 
 	List my_list;
 	int err = 0;
-	int i;
-	double j;
-	char key[MAX_KEY_LENGTH];
-
-
+	int key = 86;
+	char value1[MAX_KEY_LENGTH] = "hola";
+	int N_value2 = 2;
+	double *V_value2 = (double *)malloc(N_value2 * sizeof(double));
+	V_value2[0] = 1.1;
+	V_value2[1] = 2.1;
 
 	err = init(&my_list);
 	if (err == -1) {
@@ -19,34 +20,32 @@ int main(void)
 		return -1;
 	}
 
-	for (i=0; i < 10; i++){
-		sprintf(key, "%d", i);
-		err = set(&my_list, key, i, i, &j);
-		if (err == -1) {
-			printf("Error in set\n");
-			return -1;
-		}
-	}
+	// for (i=0; i < 10; i++){
+	// 	sprintf(key, "%d", i);
+	// 	err = set(&my_list, key, i);
+	// 	if (err == -1) {
+	// 		printf("Error in set\n");
+	// 		return -1;
+	// 	}
+	// }
+	set(&my_list, key, value1, N_value2, V_value2);
 
 	printList(my_list);
 
-	for (i=0; i < 10; i++){
-		sprintf(key, "%d", i);
-		err = delete(&my_list, key);
-		if (err == -1) {
-			printf("Error in delete\n");
-			return -1;
-		}
-	}
+	// for (i=0; i < 10; i++){
+	// 	sprintf(key, "%d", i);
+	// 	err = delete(&my_list, key);
+	// 	if (err == -1) {
+	// 		printf("Error in delete\n");
+	// 		return -1;
+	// 	}
+	// }
 
-
-	err = destroy(&my_list);
-	if (err == -1) {
-		printf("Error in destroy\n");
-		return -1;
-	}
+	// err = destroy(&my_list);
+	// if (err == -1) {
+	// 	printf("Error in destroy\n");
+	// 	return -1;
+	// }
+	
 	return 0;
 }
-
-
-
