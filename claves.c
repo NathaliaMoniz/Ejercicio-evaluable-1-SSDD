@@ -44,30 +44,9 @@ int init(){
     // return 0;
 
     // Usamos remove() para borrar el archivo
-    if (remove("archivo.txt") == 0)
-        printf("El archivo ha sido borrado exitosamente\n");
-    else
-        printf("No se pudo borrar el archivo\n");
-}
-int set_value2(){
     
-    FILE *fptr;
-    fptr = fopen("archivo.txt", "w");
-
-    if (fptr == NULL) {
-        printf("Error al abrir el archivo!");
-        return 1;
-    }
-
-    // Escribimos en el archivo
-    fprintf(fptr, "Hola, mundo!");
-
-    // Cerramos el archivo
-    fclose(fptr);
-
-    return 0;
-
 }
+
 int set_value(int key, char *value1, int N_value2, double *V_value2){
     
     

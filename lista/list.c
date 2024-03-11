@@ -42,22 +42,25 @@ int set(List *l, int key, char *value1, int N_value2, double *V_value2){
 	return 0;
 }	
 
-// int get(List l, char *key, int *value){
-// 	List aux;
+int get(List l, int key, char *value1, int *N_value2, double *V_value2){
+	List aux;
 
-// 	aux = l;	
+	aux = l;	
 
-// 	while (aux!=NULL) {
-// 		if (strcmp(aux->key, key)==0) {
-// 			*value = aux->value;
-// 			return 0;		// found
-// 		}
-// 		else
-// 			aux = aux->next;
-// 	}
+	while (aux!=NULL) {
+		if (aux->key == key) {
+			strcpy(value1, aux->value1);
+			*N_value2 = aux->N_value2;
+			memcpy(V_value2, aux->V_value2, *N_value2*sizeof(double));
+			return 0;		// found
+		}
+		else{
+			aux = aux->next;
+		}
+	}
 
-// 	return -1;  // not found
-// }	
+	return -1;  // not found
+}	
 
 int printList(List l){
 	List aux;
@@ -71,49 +74,50 @@ int printList(List l){
 		}
 		aux = aux->next;
 	}
+	
 	return 0;
 }	
 
-// int delete(List *l, char *key){
-// 	List aux, back;
+int delete(List *l, int key){
+	List aux, back;
 
-// 	if (*l == NULL)  // lista vacia
-// 		return 0;
+	if (*l == NULL)  // lista vacia
+		return 0;
 
-// 	// primer elemento de la lista
-// 	if (strcmp(key, (*l)->key) == 0){
-// 		aux = *l;
-// 		*l = (*l)->next;
-// 		free(aux);
-// 		return 0;
-// 	}
+	// primer elemento de la lista
+	if ((*l)->key == key){
+		aux = *l;
+		*l = (*l)->next;
+		free(aux);
+		return 0;
+	}
 	
-// 	aux = *l;
-// 	back = *l;
-// 	while (aux!=NULL) {
-// 		if (strcmp(aux->key, key)==0) {
-// 			back->next = aux->next;
-// 			free (aux);
-// 			return 0;		// found
-// 		}
-// 		else {
-// 			back = aux;
-// 			aux = aux->next;
-// 		}
-// 	}
+	aux = *l;
+	back = *l;
+	while (aux!=NULL) {
+		if (aux->key == key) {
+			back->next = aux->next;
+			free (aux);
+			return 0;		// found
+		}
+		else {
+			back = aux;
+			aux = aux->next;
+		}
+	}
 
-// 	return 0;
-// }	
+	return 0;
+}	
 
-// int  destroy(List *l){
-// 	List aux; 
+int  destroy(List *l){
+	List aux; 
 
-// 	while (*l != NULL){
-// 		aux = *l;
-// 		*l = aux->next;
-// 		free(aux);
-// 	}
+	while (*l != NULL){
+		aux = *l;
+		*l = aux->next;
+		free(aux);
+	}
 
-// 	return 0;
-// }	
+	return 0;
+}	
 
