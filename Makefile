@@ -1,13 +1,13 @@
 CC = gcc
 CFLAGS = -Wall -O2
 
-all: cliente servidor
+all: cliente servidor libclaves.so
 
-cliente: cliente.o claves.o
-	$(CC) $(CFLAGS) -o cliente cliente.o claves.o
+cliente: cliente.o libclaves.so
+	$(CC) $(CFLAGS) -o cliente cliente.o -L. -lclaves
 
-servidor: servidor.o claves.o
-	$(CC) $(CFLAGS) -o servidor servidor.o claves.o
+servidor: servidor.o libclaves.so
+	$(CC) $(CFLAGS) -o servidor servidor.o -L. -lclaves
 
 cliente.o: cliente.c claves.h message.h
 	$(CC) $(CFLAGS) -c cliente.c
@@ -16,7 +16,10 @@ servidor.o: servidor.c claves.h message.h
 	$(CC) $(CFLAGS) -c servidor.c
 
 claves.o: claves.c claves.h
-	$(CC) $(CFLAGS) -c claves.c
+	$(CC) $(CFLAGS) -fPIC -c claves.c -o claves.o
+
+libclaves.so: claves.o
+	$(CC) $(CFLAGS) -shared -o libclaves.so claves.o
 
 clean:
-	rm -f cliente servidor *.o
+	rm -f cliente servidor libclaves.so *.o
