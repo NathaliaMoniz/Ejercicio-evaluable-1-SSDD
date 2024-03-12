@@ -4,8 +4,7 @@
 #include "list.h"
 
 
-int init(List *l) {
-
+int iniciar(List *l) {
 	*l = NULL;
 	return (0);
 }	

@@ -15,7 +15,7 @@ struct Node{
 typedef struct Node * List;
 
 
-int init(List *l);
+int iniciar(List *l);
 int set(List *l, int key,  char *value1, int N_value2, double *V_value2);
 int get(List l, int key,  char *value1, int *N_value2, double *V_value2);
 int printList(List l);
