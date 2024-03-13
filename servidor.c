@@ -46,8 +46,9 @@ void tratar_peticion(void *mess){
 		
 	else if (mensaje.op == 1){
 		printf("set lista");
-        resultado = set(&my_list, mensaje.key, mensaje.value1, mensaje.N_value2, mensaje.V_value2);
 		
+        resultado = set(&my_list, mensaje.key, mensaje.value1, mensaje.N_value2, mensaje.V_value2);
+		printf("2\n");
 	}
 	
 	/* Se devuelve el resultado al cliente */
@@ -113,9 +114,9 @@ int main(void){
 			printf("holaaaaaa\n");
 			fflush(stdout);
             if (mq_receive(q_servidor, (char *) &mensaje, sizeof(mensaje), 0) < 0 ){
-			perror("mq_recev server");
-			fflush(stdout);
-			return -1;
+				perror("mq_recev server");
+				fflush(stdout);
+				return -1;
 		}
 
 		if (pthread_create(&thid, &t_attr, (void *)tratar_peticion, (void *)&mensaje)== 0) {

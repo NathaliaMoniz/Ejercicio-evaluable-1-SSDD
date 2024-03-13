@@ -93,13 +93,14 @@ int set_value(int key, char *value1, int N_value2, double *V_value2){
         perror("Error al abrir la cola del servidor");
         return -1;
     }
-    printf("2\n");
+
     fflush(stdout);
     mensaje.op = 1;
     mensaje.key = key;
     strcpy(mensaje.value1, value1);
     mensaje.N_value2 = N_value2;
     memcpy(mensaje.V_value2, V_value2, N_value2 * sizeof(double));
+    fflush(stdout);
     strcpy(mensaje.q_name, q_client_name);
 
     if (mq_send(q_server, (const char *)&mensaje, sizeof(mensaje), 0) < 0){

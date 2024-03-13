@@ -21,6 +21,7 @@ int main(int argc, char *argv[]){
     else if (argc > 1 && strcmp(argv[1], "1") == 0){
         printf("envio\n");
         set_value(key, value1, N_value2, V_value2);
+        printf("ggggg");
     }
     return 0;
 
