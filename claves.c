@@ -48,7 +48,8 @@ int init(){
 		return -1;
 	}
     if (mq_receive(q_client, (char *) &res, sizeof(int), 0) < 0){
-		perror("mq_recv");
+        printf("%s", q_server_name);
+		perror("Error mq_recv init");
 		return -1;
 	}
     printf("Resultado = %d\n", res);

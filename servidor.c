@@ -15,7 +15,8 @@ int mensaje_no_copiado = true;
 pthread_cond_t cond_mensaje;
 mqd_t  q_servidor;          /* Cola del servidor */
 
-void tratar_peticion(void *mess, List my_list){
+List my_list;
+void tratar_peticion(void *mess){
     
     struct message mensaje;	/* mensaje local */
 	mqd_t q_cliente;		/* cola del cliente */
@@ -76,6 +77,7 @@ int main(void){
     attributes.mq_msgsize = sizeof(mensaje);
     attributes.mq_curmsgs = 0;
     pthread_t thid;         /* ID del hilo*/
+
     char q_server_name[MAX];                            // Nombre de la cola servidor  
     sprintf(q_server_name,  "/Cola-%s", getlogin());   // El combre de la cola del servidor será el nombre del usuario
 
@@ -95,8 +97,8 @@ int main(void){
 
     // recibir el mensaje de la cola
     while(1) {
-                if (mq_receive(q_servidor, (char *) &mensaje, sizeof(mensaje), 0) < 0 ){
-			perror("mq_recev");
+            if (mq_receive(q_servidor, (char *) &mensaje, sizeof(mensaje), 0) < 0 ){
+			perror("mq_recev server");
 			return -1;
 		}
 
