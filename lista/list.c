@@ -51,6 +51,7 @@ int set(List *l, int key, char *value1, int N_value2, double *V_value2){
 }	
 
 int get(List l, int key, char *value1, int *N_value2, double *V_value2){
+	printf("llegó bien\n");
 	List aux;
 
 	aux = l;	
@@ -74,7 +75,7 @@ int printList(List l){
 	List aux;
 
 	aux = l;
-	printf("esta es la lista \n");
+	printf("esta es la lista: \n");
 	while(aux != NULL){
 		printf("Key=%d    value1=%s	value2=%d\n", aux->key, aux->value1, aux->N_value2);
 		for(int i = 0; i<aux->N_value2; i++){
@@ -86,11 +87,30 @@ int printList(List l){
 	return 0;
 }	
 
+int modify(List *l, int key, char *value1, int N_value2, double *V_value2){
+	List aux;
+
+	aux = *l;
+	while (aux!=NULL) {
+		if (aux->key == key) {
+			strcpy(aux->value1, value1);
+			aux->N_value2 = N_value2;
+			memcpy(aux->V_value2, V_value2, N_value2*sizeof(double));
+			printf("Valor a modificar encontrado\n");
+			return 0;		// found
+		}
+		else{
+			aux = aux->next;
+		}
+	}
+	return -1;
+}
+
 int delete(List *l, int key){
 	List aux, back;
 
 	if (*l == NULL)  // lista vacia
-		return 0;
+		return -1;
 
 	// primer elemento de la lista
 	if ((*l)->key == key){
@@ -106,7 +126,7 @@ int delete(List *l, int key){
 	while (aux!=NULL) {
 		if (aux->key == key) {
 			back->next = aux->next;
-			free(aux->V_value2);
+			// free(aux->V_value2);
 			free (aux);
 			return 0;		// found
 		}
@@ -116,8 +136,24 @@ int delete(List *l, int key){
 		}
 	}
 
-	return 0;
+	return -1;
 }	
+
+int inlist(List *l, int key){
+	List aux;
+
+	aux = *l;
+	while (aux!=NULL) {
+		if (aux->key == key) {
+			printf("Valor encontrado\n");
+			return 0;		// found
+		}
+		else{
+			aux = aux->next;
+		}
+	}
+	return -1;
+}
 
 int  destroy(List *l){
 	List aux; 

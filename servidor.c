@@ -9,6 +9,8 @@
 #include "claves.h"
 #include "message.h"
 
+#define TRAZA {printf ("Traza en %s:%d\n",__FILE__,__LINE__);fflush(stdout);}
+
 /* mutex y variables condicionales para proteger la copia del mensaje*/
 pthread_mutex_t mutex_mensaje;
 int mensaje_no_copiado = true;
@@ -48,6 +50,18 @@ void tratar_peticion(void *mess){
         resultado = set(&my_list, mensaje.key, mensaje.value1, mensaje.N_value2, mensaje.V_value2);
 		
 	}
+
+	else if (mensaje.op == 3){
+		resultado = modify(&my_list, mensaje.key, mensaje.value1, mensaje.N_value2, mensaje.V_value2);
+	}
+
+	else if (mensaje.op == 4){
+		resultado = delete(&my_list, mensaje.key);
+	}
+
+	else if (mensaje.op == 5){
+		resultado = inlist(&my_list, mensaje.key);
+	}
 	
 	/* Se devuelve el resultado al cliente */
 	/* Para ello se envía el resultado a su cola */
@@ -59,6 +73,7 @@ void tratar_peticion(void *mess){
 		mq_unlink(q_server_name);
 	}
 	else {
+		printList(my_list);
 		if (mq_send(q_cliente, (const char *) &resultado, sizeof(struct message), 0) <0) {
 			perror("mq_send");
 			fflush(stdout);
@@ -72,8 +87,7 @@ void tratar_peticion(void *mess){
 }
 
 int main(void){  
-	printf("inicio server\n");
-	fflush(stdout);
+	TRAZA
     struct message mensaje;
     
     pthread_attr_t t_attr;  /* Atributos de los hilos*/
@@ -111,6 +125,7 @@ int main(void){
 				fflush(stdout);
 				return -1;
 		}
+		printf("mensaje transmitido\n");
 
 		if (pthread_create(&thid, &t_attr, (void *)tratar_peticion, (void *)&mensaje)== 0) {
 			// se espera a que el thread copie el mensaje 
