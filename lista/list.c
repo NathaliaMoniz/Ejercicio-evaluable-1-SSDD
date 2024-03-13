@@ -6,10 +6,11 @@
 
 int iniciar(List *l) {
 	*l = NULL;
-	return (0);
+	return 0;
 }	
 
 int set(List *l, int key, char *value1, int N_value2, double *V_value2){
+	
 	struct Node *ptr;
 
 	ptr = (struct Node *) malloc(sizeof(struct Node));
@@ -65,7 +66,7 @@ int printList(List l){
 	List aux;
 
 	aux = l;
-
+	printf("esta es la lista \n");
 	while(aux != NULL){
 		printf("Key=%d    value1=%s	value2=%d\n", aux->key, aux->value1, aux->N_value2);
 		for(int i = 0; i<aux->N_value2; i++){
@@ -87,6 +88,7 @@ int delete(List *l, int key){
 	if ((*l)->key == key){
 		aux = *l;
 		*l = (*l)->next;
+		free(aux->V_value2);
 		free(aux);
 		return 0;
 	}
@@ -96,6 +98,7 @@ int delete(List *l, int key){
 	while (aux!=NULL) {
 		if (aux->key == key) {
 			back->next = aux->next;
+			free(aux->V_value2);
 			free (aux);
 			return 0;		// found
 		}
@@ -114,6 +117,7 @@ int  destroy(List *l){
 	while (*l != NULL){
 		aux = *l;
 		*l = aux->next;
+		free(aux->V_value2);
 		free(aux);
 	}
 

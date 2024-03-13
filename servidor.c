@@ -41,32 +41,44 @@ void tratar_peticion(void *mess){
     /* ejecutar la petición del cliente y preparar respuesta */
 	if (mensaje.op ==0){
         resultado = iniciar(&my_list);
+		printList(my_list);
     }
 		
 	else if (mensaje.op == 1){
+		printf("set lista");
         resultado = set(&my_list, mensaje.key, mensaje.value1, mensaje.N_value2, mensaje.V_value2);
-    }
+		
+	}
 	
 	/* Se devuelve el resultado al cliente */
 	/* Para ello se envía el resultado a su cola */
     q_cliente = mq_open(mensaje.q_name, O_WRONLY);
 	if (q_cliente == -1){
 		perror("No se puede abrir la cola del cliente");
+		fflush(stdout);
 		mq_close(q_servidor);
 		mq_unlink(q_server_name);
 	}
 	else {
-		if (mq_send(q_cliente, (const char *) &resultado, sizeof(int), 0) <0) {
+		if (mq_send(q_cliente, (const char *) &resultado, sizeof(struct message), 0) <0) {
 			perror("mq_send");
+			fflush(stdout);
 			mq_close(q_servidor);
 			mq_unlink(q_server_name);
 			mq_close(q_cliente);
 		}
+		else{
+			printf("%ld", sizeof(struct message));
+			fflush(stdout);
+		}
+		
 	}
 	pthread_exit(0);
 }
 
 int main(void){  
+	printf("inicio server");
+	fflush(stdout);
     struct message mensaje;
     
     pthread_attr_t t_attr;  /* Atributos de los hilos*/
@@ -87,6 +99,7 @@ int main(void){
     // tratamiento de error
     if(q_servidor == -1){
         perror("No se ha podido crear la cola del servidor");
+		fflush(stdout);
         return -1;
     }
     pthread_mutex_init(&mutex_mensaje, NULL);
@@ -97,8 +110,11 @@ int main(void){
 
     // recibir el mensaje de la cola
     while(1) {
+			printf("holaaaaaa\n");
+			fflush(stdout);
             if (mq_receive(q_servidor, (char *) &mensaje, sizeof(mensaje), 0) < 0 ){
 			perror("mq_recev server");
+			fflush(stdout);
 			return -1;
 		}
 

@@ -47,9 +47,9 @@ int init(){
 		perror("Error de mq_send");
 		return -1;
 	}
-    if (mq_receive(q_client, (char *) &res, sizeof(int), 0) < 0){
-        printf("%s", q_server_name);
+    if (mq_receive(q_client, (char *) &res, sizeof(struct message), 0) < 0){
 		perror("Error mq_recv init");
+        
 		return -1;
 	}
     printf("Resultado = %d\n", res);
@@ -105,8 +105,8 @@ int set_value(int key, char *value1, int N_value2, double *V_value2){
 		perror("Error de mq_send");
 		return -1;
 	}
-    if (mq_receive(q_client, (char *) &res, sizeof(int), 0) < 0){
-		perror("mq_recv");
+    if (mq_receive(q_client, (char *) &res, sizeof(struct message), 0) < 0){
+		perror("mq_recv set_value");
 		return -1;
 	}
     printf("Resultado = %d\n", res);
