@@ -11,8 +11,16 @@ int iniciar(List *l) {
 
 int set(List *l, int key, char *value1, int N_value2, double *V_value2){
 	
-	struct Node *ptr;
+	struct Node *ptr, *temp;
+	temp = *l;
 
+	while (temp != NULL) {
+        if (temp->key == key) {
+            printf("Error: Key %d already exists in the list.\n", key);
+            return -1; // Error code indicating key already exists
+        }
+        temp = temp->next;
+    }
 	ptr = (struct Node *) malloc(sizeof(struct Node));
 	if (ptr == NULL) 
 		return -1;

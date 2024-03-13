@@ -11,7 +11,7 @@ int main(int argc, char *argv[]){
     int key = 86;
 	char value1[MAX_KEY_LENGTH] = "prueba 1";
 	int N_value2 = 2;
-	double *V_value2 = (double *)malloc(N_value2 * sizeof(double));
+	double V_value2[N_value2];
 	V_value2[0] = 1.1234567890123456;
 	V_value2[1] = 2.1;
 
@@ -19,9 +19,9 @@ int main(int argc, char *argv[]){
         init();
     }
     else if (argc > 1 && strcmp(argv[1], "1") == 0){
-        printf("envio\n");
+        printf("envio peticion set_value cliente\n");
         set_value(key, value1, N_value2, V_value2);
-        printf("ggggg");
+        
     }
     return 0;
 

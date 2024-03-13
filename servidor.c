@@ -41,14 +41,12 @@ void tratar_peticion(void *mess){
     /* ejecutar la petición del cliente y preparar respuesta */
 	if (mensaje.op ==0){
         resultado = iniciar(&my_list);
-		printList(my_list);
+		
     }
 		
 	else if (mensaje.op == 1){
-		printf("set lista");
-		
         resultado = set(&my_list, mensaje.key, mensaje.value1, mensaje.N_value2, mensaje.V_value2);
-		printf("2\n");
+		
 	}
 	
 	/* Se devuelve el resultado al cliente */
@@ -68,17 +66,13 @@ void tratar_peticion(void *mess){
 			mq_unlink(q_server_name);
 			mq_close(q_cliente);
 		}
-		else{
-			printf("%ld", sizeof(struct message));
-			fflush(stdout);
-		}
 		
 	}
 	pthread_exit(0);
 }
 
 int main(void){  
-	printf("inicio server");
+	printf("inicio server\n");
 	fflush(stdout);
     struct message mensaje;
     
@@ -111,8 +105,7 @@ int main(void){
 
     // recibir el mensaje de la cola
     while(1) {
-			printf("holaaaaaa\n");
-			fflush(stdout);
+			
             if (mq_receive(q_servidor, (char *) &mensaje, sizeof(mensaje), 0) < 0 ){
 				perror("mq_recev server");
 				fflush(stdout);
