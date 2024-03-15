@@ -39,17 +39,20 @@ int main(int argc, char *argv[]){
         printf("envio peticion set_value cliente\n");
         set_value(key, value1, N_value2, V_value2);
     }
-    // else if (op == 2){
-    //     char *vacio1[MAX_KEY_LENGTH];
-    //     int N_vacio2 = 0;
-	//     double *V_vacio2[32];
-    //     printf("envio peticion get_value cliente\n");
-    //     get_value(key, *vacio1, &N_vacio2, *V_vacio2);
-    //     printf("valores:\nkey:%d value1:%s N_value2:%d\n", key, value1, N_value2);
-    //     for(int i = 0; i < N_value2; i++){
-	// 	    printf("V_value2[%d]: %f\n", i, V_value2[i]);
-	//     }
-    // }
+
+    else if (op == 2){
+        char vacio1[MAX_KEY_LENGTH];
+        int N_vacio2 = 0;
+	    double V_vacio2[32];
+        printf("envio peticion get_value cliente\n");
+        get_value(key, vacio1, &N_vacio2, V_vacio2);
+        printf("valores:\nkey:%d value1:%s N_value2:%d\n", key, vacio1, N_vacio2);
+        
+        for(int i = 0; i < N_vacio2; i++){
+		    printf("V_value2[%d]: %f\n", i, V_vacio2[i]);
+	    }
+    }
+
     else if (op == 3){
         printf("envio peticion modify_value cliente\n");
         char value1_modify[MAX_KEY_LENGTH] = "prueba 3";
