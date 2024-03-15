@@ -58,18 +58,20 @@ int get(List l, int key, char *value1, int *N_value2, double *V_value2){
 
 	while (aux!=NULL) {
 		if (aux->key == key) {
+			
 			printf("llega bien");
 			fflush(stdout);
 			strcpy(value1, aux->value1);
 			*N_value2 = aux->N_value2;
 			memcpy(V_value2, aux->V_value2, *N_value2*sizeof(double));
+			
 			return 0;		// found
 		}
 		else{
 			aux = aux->next;
 		}
 	}
-
+	
 	return -1;  // not found
 }	
 

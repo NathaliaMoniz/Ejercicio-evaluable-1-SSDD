@@ -46,11 +46,11 @@ int main(int argc, char *argv[]){
 	    double V_vacio2[32];
         printf("envio peticion get_value cliente\n");
         get_value(key, vacio1, &N_vacio2, V_vacio2);
-        printf("valores:\nkey:%d value1:%s N_value2:%d\n", key, vacio1, N_vacio2);
+        //printf("valores:\nkey:%d value1:%s N_value2:%d\n", key, vacio1, N_vacio2);
         
-        for(int i = 0; i < N_vacio2; i++){
-		    printf("V_value2[%d]: %f\n", i, V_vacio2[i]);
-	    }
+        // for(int i = 0; i < N_vacio2; i++){
+		//     printf("V_value2[%d]: %f\n", i, V_vacio2[i]);
+	    // }
     }
 
     else if (op == 3){

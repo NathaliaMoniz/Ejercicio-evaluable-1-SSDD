@@ -152,11 +152,11 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2){
 
     mensaje.op = 2;
     mensaje.key = key;
-    // strcpy(mensaje.value1, value1);
-    // // mensaje.N_value2 = N_value2;
-    // // memcpy(mensaje.N_value2, N_value2, 4);
-    // mensaje.N_value2 = *N_value2;
-    // memcpy(mensaje.V_value2, V_value2, 32*sizeof(double));
+    strcpy(mensaje.value1, value1);
+    // mensaje.N_value2 = N_value2;
+    // memcpy(mensaje.N_value2, N_value2, 4);
+    mensaje.N_value2 = *N_value2;
+    memcpy(mensaje.V_value2, V_value2, 32*sizeof(double));
     strcpy(mensaje.q_name, q_client_name);
 
     if (mq_send(q_server, (const char *)&mensaje, sizeof(mensaje), 0) < 0){
@@ -168,6 +168,10 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2){
 		return -1;
 	}
     printf("Resultado = %d\n", res);
+
+    // strcpy(value1, mensaje.value1);
+    // *N_value2 = mensaje.N_value2;
+    // memcpy(V_value2, mensaje.V_value2, *N_value2 * sizeof(double));
 
     mq_close(q_server);
     mq_close(q_client);
