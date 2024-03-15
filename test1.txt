@@ -1,0 +1,2 @@
+./cliente 0 0 "0" 0
+./cliente 1 86 "prueba 1" 2

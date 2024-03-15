@@ -51,6 +51,12 @@ void tratar_peticion(void *mess){
 		
 	}
 
+	else if (mensaje.op == 2){
+		printf("llega bien 2\n");
+		fflush(stdout);
+		resultado = get(my_list, mensaje.key, mensaje.value1, &mensaje.N_value2, mensaje.V_value2);
+	}
+
 	else if (mensaje.op == 3){
 		resultado = modify(&my_list, mensaje.key, mensaje.value1, mensaje.N_value2, mensaje.V_value2);
 	}

@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -O2 
+CFLAGS = -Wall  
 DEPS = claves.h list.h
 
 all: cliente servidor libclaves.so
