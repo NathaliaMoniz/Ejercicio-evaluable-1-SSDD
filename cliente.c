@@ -17,27 +17,35 @@ int main(int argc, char *argv[]){
     srand(time(NULL));
 
     // Inicialización de los valores
+    int resultado;
     int op = atoi(argv[1]);
-    int key = atoi(argv[2]);
-    char *value1 = strdup(argv[3]);
-	int N_value2 = atoi(argv[4]);
+    int key = 0;
+    char *value1 = "";
+    int N_value2 = 0;
+
+    // Si es necesaria la clave, tomará el valor aquí
+    if (argc > 2){
+        key = atoi(argv[2]);
+    }
+    // Si son necesarios los valores asociados a la clave, los tomará aquí
+    if (argc > 3){
+        value1 = strdup(argv[3]);
+	    N_value2 = atoi(argv[4]);
+    }
+    
 	double V_value2[N_value2];
     for (int i = 0; i<N_value2;i++){
         V_value2[i] = (double)rand() / rand();
     }
-    
-
-    printf("valores:\nkey:%d value1:%s N_value2:%d\n", key, value1, N_value2);
-    for(int i = 0; i < N_value2; i++){
-        printf("V_value2[%d]: %f\n", i, V_value2[i]);
-    }
 
     if (op == 0){
-        init();
+        printf("envio peticion init cliente\n");
+        resultado = init();
     }
     else if (op == 1){
         printf("envio peticion set_value cliente\n");
-        set_value(key, value1, N_value2, V_value2);
+        resultado = set_value(key, value1, N_value2, V_value2);
+
     }
 
     else if (op == 2){
@@ -45,32 +53,32 @@ int main(int argc, char *argv[]){
         int N_vacio2 = 0;
 	    double V_vacio2[32];
         printf("envio peticion get_value cliente\n");
-        get_value(key, vacio1, &N_vacio2, V_vacio2);
-        //printf("valores:\nkey:%d value1:%s N_value2:%d\n", key, vacio1, N_vacio2);
-        
-        // for(int i = 0; i < N_vacio2; i++){
-		//     printf("V_value2[%d]: %f\n", i, V_vacio2[i]);
-	    // }
+        resultado = get_value(key, vacio1, &N_vacio2, V_vacio2);
     }
 
     else if (op == 3){
         printf("envio peticion modify_value cliente\n");
-        char value1_modify[MAX_KEY_LENGTH] = "prueba 3";
-        N_value2 = 4;
-        double V_value2[N_value2]; 
-        V_value2[0] = 1.1234567890123456;
-        V_value2[1] = 2.1;
-        V_value2[2] = 5.46;
-        modify_value(key, value1_modify, N_value2, V_value2);
+        resultado = modify_value(key, value1, N_value2, V_value2);
     }
     else if (op == 4){
         printf("envio peticion delete_key cliente\n");
-        delete_key(key);
+        resultado = delete_key(key);
     }
     else if (op == 5){
         printf("envio peticion exist_key cliente\n");
-        exist(key);
+        resultado = exist(key);
     }
+    else if (op == 6){
+        printf("envio peticion print cliente\n");
+        resultado = printLista();
+    }
+
+    if (resultado == -1){
+        printf("Se ha producido un error.\n");
+        fflush(stdout);
+        return -1;
+    }
+
     return 0;
 
 }

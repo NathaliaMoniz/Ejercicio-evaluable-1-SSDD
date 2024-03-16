@@ -14,10 +14,16 @@ int set(List *l, int key, char *value1, int N_value2, double *V_value2){
 	struct Node *ptr, *temp;
 	temp = *l;
 
+	// El vector no tiene un tamaño permitido
+	if (N_value2 > 32 || N_value2 < 1){
+		printf("Error: el número de valores del vector solo puede estar entre 1 y 32\n");
+		return -1;
+	}
+
 	while (temp != NULL) {
         if (temp->key == key) {
-            printf("Error: Key %d already exists in the list.\n", key);
-            return -1; // Error code indicating key already exists
+            printf("Error: Key %d ya está en la lista.\n", key);
+            return -1; // La llave ya existe
         }
         temp = temp->next;
     }
@@ -35,23 +41,20 @@ int set(List *l, int key, char *value1, int N_value2, double *V_value2){
 	ptr->N_value2 = N_value2;
 	memcpy(ptr->V_value2, V_value2, N_value2*sizeof(double));
 
-	if (*l == NULL) {  // emtpy list
+	if (*l == NULL) {  // Lista vacía
 		ptr->next = NULL;
 		*l = ptr;
 	}
+	// Inserta el valor en la cabeza
 	else {
-		// insert in head
-		
 		ptr->next = *l;
 		*l = ptr;
 	}
-
 
 	return 0;
 }	
 
 int get(List l, int key, char *value1, int *N_value2, double *V_value2){
-	printf("llegó bien\n");
 	List aux;
 
 	aux = l;	
@@ -59,20 +62,18 @@ int get(List l, int key, char *value1, int *N_value2, double *V_value2){
 	while (aux!=NULL) {
 		if (aux->key == key) {
 			
-			printf("llega bien");
-			fflush(stdout);
 			strcpy(value1, aux->value1);
 			*N_value2 = aux->N_value2;
 			memcpy(V_value2, aux->V_value2, *N_value2*sizeof(double));
 			
-			return 0;		// found
+			return 0;		// Valor encontrado
 		}
 		else{
 			aux = aux->next;
 		}
 	}
 	
-	return -1;  // not found
+	return -1;  // Valor no encontrado
 }	
 
 int printList(List l){
@@ -101,22 +102,23 @@ int modify(List *l, int key, char *value1, int N_value2, double *V_value2){
 			aux->N_value2 = N_value2;
 			memcpy(aux->V_value2, V_value2, N_value2*sizeof(double));
 			printf("Valor a modificar encontrado\n");
-			return 0;		// found
+			return 0;		// Valor encontrado
 		}
 		else{
 			aux = aux->next;
 		}
 	}
-	return -1;
+	printf("Error: valor a modificar no encontrado\n");
+	return -1;		// Valor no encontrado
 }
 
 int delete(List *l, int key){
 	List aux, back;
 
-	if (*l == NULL)  // lista vacia
+	if (*l == NULL)  // Lista vacía
 		return -1;
 
-	// primer elemento de la lista
+	// Primer elemento de la lista
 	if ((*l)->key == key){
 		aux = *l;
 		*l = (*l)->next;
@@ -130,17 +132,17 @@ int delete(List *l, int key){
 	while (aux!=NULL) {
 		if (aux->key == key) {
 			back->next = aux->next;
-			// free(aux->V_value2);
 			free (aux);
-			return 0;		// found
+			printf("Valor a borrar encontrado\n");
+			return 0;		// Valor encontrado
 		}
 		else {
 			back = aux;
 			aux = aux->next;
 		}
 	}
-
-	return -1;
+	printf("Error: valor a borrar no encontrado\n");
+	return -1;		// Valor no encontrado
 }	
 
 int inlist(List *l, int key){
@@ -150,16 +152,17 @@ int inlist(List *l, int key){
 	while (aux!=NULL) {
 		if (aux->key == key) {
 			printf("Valor encontrado\n");
-			return 0;		// found
+			return 1;		// Valor encontrado
 		}
 		else{
 			aux = aux->next;
 		}
 	}
-	return -1;
+	printf("Error: valor no encontrado\n");
+	return 0; 	// Valor no encontrado
 }
 
-int  destroy(List *l){
+int destroy(List *l){
 	List aux; 
 
 	while (*l != NULL){

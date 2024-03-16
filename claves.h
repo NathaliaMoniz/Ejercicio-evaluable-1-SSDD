@@ -9,6 +9,8 @@
  * @retval 0 en caso de exito.
  * @retval -1 en caso de error.
  */
+int printLista();
+
 int init();
 
 /**
