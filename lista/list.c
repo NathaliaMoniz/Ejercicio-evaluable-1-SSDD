@@ -65,14 +65,14 @@ int get(List l, int key, char *value1, int *N_value2, double *V_value2){
 			strcpy(value1, aux->value1);
 			*N_value2 = aux->N_value2;
 			memcpy(V_value2, aux->V_value2, *N_value2*sizeof(double));
-			
+			printf("Valor a obtener encontrado\n");
 			return 0;		// Valor encontrado
 		}
 		else{
 			aux = aux->next;
 		}
 	}
-	
+	printf("Valor a obtener no encontrado\n");
 	return -1;  // Valor no encontrado
 }	
 

@@ -68,10 +68,6 @@ int main(int argc, char *argv[]){
         printf("envio peticion exist_key cliente\n");
         resultado = exist(key);
     }
-    else if (op == 6){
-        printf("envio peticion print cliente\n");
-        resultado = printLista();
-    }
 
     if (resultado == -1){
         printf("Se ha producido un error.\n");

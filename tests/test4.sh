@@ -5,4 +5,3 @@
 ../cliente 1 39 "Alberto" 6
 ../cliente 1 79 "Nathalia" 2
 ../cliente 4 55
-../cliente 6

@@ -73,9 +73,7 @@ void tratar_peticion(void *mess){
 	else if (mensaje.op == 5 && iniciado == true){
 		resultado = inlist(&my_list, mensaje.key);
 	}
-	else if (mensaje.op == 6 && iniciado == true){
-		resultado = printList(my_list);
-	}
+
 	else {
 		resultado = -1;
 	}

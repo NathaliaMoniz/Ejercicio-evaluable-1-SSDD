@@ -4,4 +4,3 @@
 ../cliente 1 33 "shrek" 2
 ../cliente 1 5 "100 anos de soledad" 6
 ../cliente 2 5
-../cliente 6
